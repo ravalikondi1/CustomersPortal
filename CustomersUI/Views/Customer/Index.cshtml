@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Customer>
+
+@{
+    ViewData["Title"] = "All Customers";
+}
+
+<h2>All Customers</h2>
+
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer Full Name</th>
+            <th>Email Address</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.Id</td>
+                <td>@customer.FirstName @customer.LastName</td>
+                <td>@customer.EmailAddress</td>
+                <td>
+                    <a asp-action="UpdateCustomer" asp-route-id="@customer.Id">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <form asp-action="DeleteCustomer" method="post" asp-route-id="@customer.Id">
+                        <input type="hidden" value="@customer.Id" name="CustomerId" />
+                        <input type="image" src="/icons/delete.png" style="max-width: 20px" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="AddCustomer" class="btn btn-sm btn-primary">Add Customer</a>
+<a asp-action="GetCustomer" class="btn btn-sm btn-primary">Get Customer</a>
